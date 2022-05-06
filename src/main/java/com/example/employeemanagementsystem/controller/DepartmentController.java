@@ -1,37 +1,48 @@
 package com.example.employeemanagementsystem.controller;
 
 import com.example.employeemanagementsystem.entity.Department;
+import com.example.employeemanagementsystem.entity.Employee;
 import com.example.employeemanagementsystem.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
-@RestController
+@Controller
+@RequestMapping("/department")
 public class DepartmentController {
 
     @Autowired
     DepartmentService departmentService;
 
-    @PostMapping("/department")
-    public ResponseEntity<Department> addDepartment(@RequestBody Department department) {
-        Department result = departmentService.add(department);
+    @GetMapping("/list")
+    public String viewDepartment(Model model){
+        List<Department> departmentList = departmentService.getAll();
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        model.addAttribute("departments", departmentList);
+        return "department";
     }
 
-    @GetMapping("/department/{id}")
-    public ResponseEntity<Department> getDepartment(@PathVariable long id) {
-        Optional<Department> department = departmentService.get(id);
+    @GetMapping("/add")
+    public String addDepartment(Model model){
+        Department department = new Department();
 
-        if (department.isEmpty()) {
-            throw new NoSuchElementException("Department not found!");
-        }
+        model.addAttribute("department", department);
+        return "department-form";
+    }
 
-        return new ResponseEntity<>(department.get(), HttpStatus.OK);
+    @GetMapping("/save")
+    public String saveDepartment(@Valid @ModelAttribute("department") Department department){
+        departmentService.save(department);
+
+        return "redirect:/department/list";
     }
 }

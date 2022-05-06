@@ -6,6 +6,7 @@ import com.example.employeemanagementsystem.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +25,10 @@ public class DepartmentService {
 
     public Optional<Department> get(long id){
         return departmentRepository.findById(id);
+    }
+
+    public List<Department> getAll(){
+        return departmentRepository.findAll();
     }
 
     public void addEmployee(long department_id, Employee employee){

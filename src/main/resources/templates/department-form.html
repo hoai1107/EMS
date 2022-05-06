@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>Add Employee</title>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <form action="#" th:action="@{/department/save}" th:object="${department}" method="POST">
+            <fieldset>
+                <legend class="px-5"><strong>Department Information</strong></legend>
+                <hr/>
+
+                <!-- Hidden form field to handle update -->
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="mb-3 px-5">
+                    <label for="firstname" th:class="form-label">Department Name</label>
+                    <input type="text" id="firstname" class="form-control" th:field="*{departmentName}">
+                </div>
+
+                <div class="px-5">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <hr/>
+
+        <a th:href="@{/department/list}" class="px-5">Back to Department List</a>
+    </div>
+</div>
+</body>
