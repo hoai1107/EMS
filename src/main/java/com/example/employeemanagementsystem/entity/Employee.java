@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -42,7 +41,9 @@ public class Employee {
     @NotNull
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}
+    )
     @JoinColumn(name = "department_id")
     @JsonIgnoreProperties("employees")
     private Department department;

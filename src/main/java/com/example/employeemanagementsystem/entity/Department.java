@@ -25,7 +25,7 @@ public class Department {
 
     @OneToMany(
             mappedBy = "department",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
             fetch = FetchType.LAZY
     )
     @JsonIgnoreProperties("department")
@@ -33,5 +33,6 @@ public class Department {
 
     public void addEmployee(Employee employee){
         employees.add(employee);
+        employee.setDepartment(this);
     }
 }
