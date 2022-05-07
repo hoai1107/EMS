@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <title>Employee Management System</title>
 </head>
 <body>
-    <h1 th:class="title" th:text="${name}"></h1>
+<div id="home">
+    <div class="landing-text">
+        <p class="landing-header">Employee Management System</p>
+        <a th:href="@{/employee/list}" class="btn btn-light btn-lg">Employee</a>
+        <br/>
+        <a th:href="@{/department/list}" class="btn btn-light btn-lg">Department</a>
+    </div>
+</div>
 </body>
 </html>

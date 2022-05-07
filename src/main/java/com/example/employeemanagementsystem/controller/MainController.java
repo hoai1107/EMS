@@ -11,6 +11,6 @@ public class MainController {
 
     @GetMapping("/")
     public String indexPage(Model model) {
-        return "redirect:/employee/list";
+        return "index";
     }
 }
