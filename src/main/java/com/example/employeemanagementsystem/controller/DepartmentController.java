@@ -39,9 +39,23 @@ public class DepartmentController {
         return "department-form";
     }
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public String saveDepartment(@Valid @ModelAttribute("department") Department department){
         departmentService.save(department);
+
+        return "redirect:/department/list";
+    }
+
+    @GetMapping("/update")
+    public String updateDepartment(@RequestParam("departmentId") long id, Model model){
+        Department department = departmentService.get(id).get();
+        model.addAttribute("department", department);
+        return "department-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteDepartment(@RequestParam("departmentId") long id){
+        departmentService.deleteById(id);
 
         return "redirect:/department/list";
     }

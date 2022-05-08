@@ -15,8 +15,8 @@ public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public Department save(Department department){
-        return departmentRepository.save(department);
+    public void save(Department department){
+        departmentRepository.save(department);
     }
 
     public Department add(Department department){
@@ -29,6 +29,10 @@ public class DepartmentService {
 
     public List<Department> getAll(){
         return departmentRepository.findAll();
+    }
+
+    public void deleteById(long id){
+        departmentRepository.deleteById(id);
     }
 
     public void addEmployee(long department_id, Employee employee){
