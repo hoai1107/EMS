@@ -27,7 +27,7 @@
             </tr>
             </thead>
 
-            <tbody th:each="department, status: ${departments}">
+            <tbody th:each="department, status: ${departments.getContent()}">
             <td th:text="${status.count}"/>
             <td th:text="${department.departmentName}"/>
             <td><a th:href="@{/department/employee-list(departmentId=${department.id})}">View</a></td>
@@ -72,6 +72,28 @@
             </td>
             </tbody>
         </table>
+        <nav aria-label="Search results pages">
+            <ul class="pagination">
+                <li th:if="${departments.hasPrevious()}"
+                    class="page-item"><a class="page-link"
+                                         th:href="@{/department/list(page=${departments.getNumber()})}">Previous
+                </a></li>
+                <li th:if="${departments.hasPrevious()}" class="page-item"><a class="page-link"
+                                                                              th:href="@{/department/list(page=
+                    ${departments.getNumber()})}" th:text="${departments.getNumber()}"></a></li>
+
+                <li class="page-item active"><a class="page-link" href="#" th:text="${departments.getNumber() + 1}"></a>
+                </li>
+
+                <li th:if="${departments.hasNext()}" class="page-item"><a class="page-link"
+                                                                          th:href="@{/department/list(page=
+                    ${departments.getNumber() + 2})}" th:text="${departments.getNumber() + 2}"></a></li>
+                <li th:if="${departments.hasNext()}" class="page-item"><a class="page-link"
+                                                                          th:href="@{/department/list(page=${departments.getNumber() + 2})}">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <br/>
         <a th:href="@{/}">Back to Main page</a>
     </div>
 </div>

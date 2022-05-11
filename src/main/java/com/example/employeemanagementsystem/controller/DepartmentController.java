@@ -4,6 +4,7 @@ import com.example.employeemanagementsystem.entity.Department;
 import com.example.employeemanagementsystem.entity.Employee;
 import com.example.employeemanagementsystem.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,14 @@ public class DepartmentController {
     DepartmentService departmentService;
 
     @GetMapping("/list")
-    public String viewDepartment(Model model){
-        List<Department> departmentList = departmentService.getAll();
+    public String viewDepartment(Model model, @RequestParam(required = false, name="page") Integer page){
+        if(Objects.equals(page, null)){
+            page = 1;
+        }
 
-        model.addAttribute("departments", departmentList);
+        Page<Department> departments = departmentService.getDepartmentByPage(page);
+
+        model.addAttribute("departments", departments);
         return "department";
     }
 

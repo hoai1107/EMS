@@ -6,12 +6,14 @@ import com.example.employeemanagementsystem.entity.EmployeeFormData;
 import com.example.employeemanagementsystem.service.DepartmentService;
 import com.example.employeemanagementsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -25,8 +27,12 @@ public class EmployeeController {
     DepartmentService departmentService;
 
     @GetMapping("/list")
-    public String viewEmployee(Model model) {
-        List<Employee> employees = employeeService.getAll();
+    public String viewEmployee(Model model, @RequestParam(required = false, name = "page") Integer page) {
+        if(Objects.equals(page, null)){
+            page = 1;
+        }
+
+        Page<Employee> employees = employeeService.getEmployeeByPage(page);
         List<Department> departmentList = departmentService.getAll();
 
         model.addAttribute("employees", employees);
