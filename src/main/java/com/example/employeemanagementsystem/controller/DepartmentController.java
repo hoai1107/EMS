@@ -3,6 +3,7 @@ package com.example.employeemanagementsystem.controller;
 import com.example.employeemanagementsystem.entity.Department;
 import com.example.employeemanagementsystem.entity.Employee;
 import com.example.employeemanagementsystem.service.DepartmentService;
+import com.example.employeemanagementsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ public class DepartmentController {
 
     @Autowired
     DepartmentService departmentService;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping("/list")
     public String viewDepartment(Model model, @RequestParam(required = false, name="page") Integer page){
@@ -67,11 +71,16 @@ public class DepartmentController {
     }
 
     @GetMapping("/employee-list")
-    public String viewEmployeesOfDepartment(@RequestParam("departmentId") long id, Model model){
-        Department department = departmentService.get(id).get();
-        Set<Employee> employeeSet = department.getEmployees();
+    public String viewEmployeesOfDepartment(@RequestParam("departmentId") long id,
+                                            @RequestParam(required = false, name = "page") Integer page, Model model){
+        if(Objects.equals(page, null)){
+            page = 1;
+        }
 
-        model.addAttribute("employees", employeeSet);
+        Department department = departmentService.get(id).get();
+        Page<Employee> employees = employeeService.getEmployeeByDepartmentByPage(id, page);
+
+        model.addAttribute("employees", employees);
         model.addAttribute("department", department);
 
         return "department-employee";

@@ -43,4 +43,10 @@ public class EmployeeService {
 
         return employees;
     }
+
+    public Page<Employee> getEmployeeByDepartmentByPage(long departmentId, int page){
+        Pageable pagination = PageRequest.of(page -1 , ITEM_PER_PAGE);
+
+        return employeeRepository.findByDepartmentId(departmentId, pagination);
+    }
 }
