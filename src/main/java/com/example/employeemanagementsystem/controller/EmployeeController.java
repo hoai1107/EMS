@@ -1,6 +1,8 @@
 package com.example.employeemanagementsystem.controller;
 
+import com.example.employeemanagementsystem.entity.Department;
 import com.example.employeemanagementsystem.entity.Employee;
+import com.example.employeemanagementsystem.entity.EmployeeFormData;
 import com.example.employeemanagementsystem.service.DepartmentService;
 import com.example.employeemanagementsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,41 +25,58 @@ public class EmployeeController {
     DepartmentService departmentService;
 
     @GetMapping("/list")
-    public String viewEmployee(Model model){
+    public String viewEmployee(Model model) {
         List<Employee> employees = employeeService.getAll();
+        List<Department> departmentList = departmentService.getAll();
 
         model.addAttribute("employees", employees);
+        model.addAttribute("departmentList", departmentList);
+
         return "employee";
     }
 
     @GetMapping("/add")
-    public String addEmployeeForm(Model model){
+    public String addEmployeeForm(Model model) {
+        //Employee employee = new Employee();
+        EmployeeFormData employee = new EmployeeFormData();
+        List<Department> departmentList = departmentService.getAll();
 
-        Employee employee = new Employee();
         model.addAttribute("employee", employee);
+        model.addAttribute("departmentList", departmentList);
 
         return "employee-form";
     }
 
     @GetMapping("/update")
-    public String updateEmployeeForm(@RequestParam("employeeId") long id, Model model){
-        Optional<Employee> employee = employeeService.getEmployeeById(id);
+    public String updateEmployeeForm(@RequestParam("employeeId") long id, Model model) {
+        Employee employee = employeeService.getEmployeeById(id).get();
+        EmployeeFormData employeeFormData = new EmployeeFormData(employee);
+        List<Department> departmentList = departmentService.getAll();
 
-        model.addAttribute("employee", employee.get());
+        model.addAttribute("employee", employeeFormData);
+        model.addAttribute("departmentList", departmentList);
 
         return "employee-form";
     }
 
     @GetMapping("/delete")
-    public String deleteEmployee (@RequestParam("employeeId") long id){
+    public String deleteEmployee(@RequestParam("employeeId") long id) {
         employeeService.deleteEmployeeById(id);
         return "redirect:/employee/list";
     }
 
     @PostMapping("/save")
-    public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee){
-        employeeService.save(employee);
+    public String saveEmployee(@Valid @ModelAttribute("employee") EmployeeFormData employeeFormData) {
+        Employee employee = new Employee(employeeFormData);
+        long departmentId = employeeFormData.getDepartmentId();
 
+        if (departmentId != 0) {
+            Department department = departmentService.get(departmentId).get();
+            department.addEmployee(employee);
+            departmentService.save(department);
+        } else {
+            employeeService.save(employee);
+        }
         return "redirect:/employee/list";
     }
 }

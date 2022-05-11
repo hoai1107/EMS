@@ -49,7 +49,11 @@ public class DepartmentController {
     @GetMapping("/update")
     public String updateDepartment(@RequestParam("departmentId") long id, Model model){
         Department department = departmentService.get(id).get();
+
+
         model.addAttribute("department", department);
+
+
         return "department-form";
     }
 

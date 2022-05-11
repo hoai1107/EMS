@@ -26,6 +26,7 @@
                 <th>Email</th>
                 <th>Address</th>
                 <th>Phone</th>
+                <th>Department</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -38,6 +39,7 @@
                 <td th:text="${tempEmployee.email}"></td>
                 <td th:text="${tempEmployee.address}"></td>
                 <td th:text="${tempEmployee.phone}"></td>
+                <td th:text="${tempEmployee.department == null} ? 'None' : ${tempEmployee.department.getDepartmentName()}"></td>
                 <td>
                     <!-- Update button -->
                     <a th:href="@{/employee/update(employeeId=${tempEmployee.id})}"

@@ -42,7 +42,8 @@ public class Employee {
     private String phone;
 
     @ManyToOne(
-            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "department_id")
     @JsonIgnoreProperties("employees")
@@ -52,5 +53,15 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public Employee(EmployeeFormData employeeFormData){
+        this.id = employeeFormData.getEmployeeId();
+        this.firstName = employeeFormData.getFirstName();
+        this.lastName = employeeFormData.getLastName();
+        this.dateOfBirth = employeeFormData.getDateOfBirth();
+        this.email = employeeFormData.getEmail();
+        this.address = employeeFormData.getAddress();
+        this.phone = employeeFormData.getPhone();
     }
 }
