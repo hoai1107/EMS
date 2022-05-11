@@ -20,8 +20,9 @@
         <table class="table table-striped table-bordered align-middle">
             <thead th:class="table-dark">
             <tr>
-                <th></th>
+                <th>#</th>
                 <th>Department Name</th>
+                <th>Employees List</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -29,6 +30,7 @@
             <tbody th:each="department, status: ${departments}">
             <td th:text="${status.count}"/>
             <td th:text="${department.departmentName}"/>
+            <td><a th:href="@{/department/employee-list(departmentId=${department.id})}">View</a></td>
             <td>
                 <!-- Update button -->
                 <a th:href="@{/department/update(departmentId=${department.id})}"
@@ -70,6 +72,7 @@
             </td>
             </tbody>
         </table>
+        <a th:href="@{/}">Back to Main page</a>
     </div>
 </div>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>

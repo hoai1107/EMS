@@ -11,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/department")
@@ -62,5 +59,16 @@ public class DepartmentController {
         departmentService.deleteById(id);
 
         return "redirect:/department/list";
+    }
+
+    @GetMapping("/employee-list")
+    public String viewEmployeesOfDepartment(@RequestParam("departmentId") long id, Model model){
+        Department department = departmentService.get(id).get();
+        Set<Employee> employeeSet = department.getEmployees();
+
+        model.addAttribute("employees", employeeSet);
+        model.addAttribute("department", department);
+
+        return "department-employee";
     }
 }
