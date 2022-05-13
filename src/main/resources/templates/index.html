@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 <head>
     <meta charset="UTF-8">
 
@@ -12,9 +12,14 @@
 <div id="home">
     <div class="landing-text">
         <p class="landing-header">Employee Management System</p>
-        <a th:href="@{/employee/list}" class="btn btn-light btn-lg">Employee</a>
-        <br/>
-        <a th:href="@{/department/list}" class="btn btn-light btn-lg">Department</a>
+        <div class="d-grid gap-2 col-3 mx-auto">
+            <a th:href="@{/employee/list}" class="btn btn-light btn-lg">Employee</a>
+            <a th:href="@{/department/list}" class="btn btn-light btn-lg">Department</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-primary btn-lg mt-5">Login</a>
+            <form class="w-100" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <button class="btn btn-lg btn-secondary mt-5 w-100" type="submit" value="Logout">Logout</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>

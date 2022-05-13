@@ -37,9 +37,8 @@ public class DepartmentService {
 
     public Page<Department> getDepartmentByPage(int page){
         Pageable pageable = PageRequest.of(page - 1, ITEM_PER_PAGE, Sort.by("departmentName").ascending());
-        Page<Department> departments = departmentRepository.findAll(pageable);
 
-        return departments;
+        return departmentRepository.findAll(pageable);
     }
 
     public void deleteById(long id){

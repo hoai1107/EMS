@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+#user-form{
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url(../image/login.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.login-heading {
+    font-weight: 700;
+}
+
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+}

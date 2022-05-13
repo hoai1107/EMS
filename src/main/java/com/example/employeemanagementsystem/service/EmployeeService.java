@@ -39,9 +39,8 @@ public class EmployeeService {
 
     public Page<Employee> getEmployeeByPage(int page){
         Pageable pagination = PageRequest.of(page - 1, ITEM_PER_PAGE, Sort.by("firstName").ascending());
-        Page<Employee> employees = employeeRepository.findAll(pagination);
 
-        return employees;
+        return employeeRepository.findAll(pagination);
     }
 
     public Page<Employee> getEmployeeByDepartmentByPage(long departmentId, int page){
