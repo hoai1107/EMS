@@ -9,8 +9,14 @@
     min-height: 100vh;
 }
 
-.bg-image {
+.bg-image-login {
     background-image: url(../image/login.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-image-register{
+    background-image: url(../image/register.jpg);
     background-size: cover;
     background-position: center;
 }

@@ -49,7 +49,7 @@ public class MainController {
             userService.saveNewUser(user);
         } catch (Exception exception) {
             model.addAttribute("registerError", true);
-            model.addAttribute("errorMessage", "Username exist!");
+            model.addAttribute("errorMessage", exception.getMessage());
             return "register";
         }
 
