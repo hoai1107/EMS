@@ -32,7 +32,7 @@ public class Department {
     private Set<Employee> employees = new HashSet<>();
 
     public void addEmployee(Employee employee){
-        employees.add(employee);
+        this.employees.add(employee);
         employee.setDepartment(this);
     }
 }

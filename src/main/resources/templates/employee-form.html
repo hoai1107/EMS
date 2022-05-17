@@ -52,7 +52,7 @@
                 <div class="mb-3 px-5">
                     <label for="department" th:class="form-label">Department</label>
                     <select id="department" th:field="*{departmentId}">
-                        <option th:value="0" th:selected="${employee.departmentId == null}">None</option>
+                        <option th:value="0" th:selected="${employee.departmentId == 0}">None</option>
                         <option th:each="department : ${departmentList}" th:value="${department.id}"
                                 th:text="${department.departmentName}"
                                 th:selected="${employee.departmentId != null and employee.departmentId == department.id}"></option>

@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @AllArgsConstructor
@@ -63,5 +64,9 @@ public class Employee {
         this.email = employeeFormData.getEmail();
         this.address = employeeFormData.getAddress();
         this.phone = employeeFormData.getPhone();
+    }
+
+    public boolean isInDepartment(){
+        return !Objects.equals(this.department, null);
     }
 }

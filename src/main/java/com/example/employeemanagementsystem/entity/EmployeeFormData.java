@@ -34,9 +34,9 @@ public class EmployeeFormData {
     private String phone;
 
     private long employeeId;
-    private long departmentId;
+    private long departmentId = 0;
 
-    public EmployeeFormData(Employee employee){
+    public EmployeeFormData(Employee employee) {
         this.firstName = employee.getFirstName();
         this.lastName = employee.getLastName();
         this.email = employee.getEmail();
@@ -44,5 +44,11 @@ public class EmployeeFormData {
         this.phone = employee.getPhone();
         this.address = employee.getAddress();
         this.employeeId = employee.getId();
+
+        if (employee.isInDepartment()) {
+            this.departmentId = employee.getDepartment().getId();
+        } else {
+            this.departmentId = 0;
+        }
     }
 }
