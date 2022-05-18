@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
@@ -15,7 +15,8 @@
         <h2>List of Employees</h2>
         <hr/>
 
-        <a th:href="@{/employee/add}" class="btn btn-primary btn-lg mb-3">Add employee</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/employee/add}" class="btn btn-primary btn-lg mb-3">Add
+            employee</a>
         <div class="table-responsive">
             <table id="employee-table" class="table table-striped table-bordered align-middle">
                 <thead th:class="table-dark">
@@ -28,7 +29,7 @@
                     <th style="width: 20%">Address</th>
                     <th style="width: 10%">Phone</th>
                     <th style="width: 10%">Department</th>
-                    <th style="width: 15%">Action</th>
+                    <th sec:authorize="hasRole('ADMIN')" style="width: 15%">Action</th>
                 </tr>
                 </thead>
 
@@ -42,7 +43,8 @@
                     <td th:text="${tempEmployee.address}"></td>
                     <td th:text="${tempEmployee.phone}"></td>
                     <td th:text="${tempEmployee.department == null} ? 'None' : ${tempEmployee.department.getDepartmentName()}"></td>
-                    <td>
+
+                    <td sec:authorize="hasRole('ADMIN')">
                         <!-- Update button -->
                         <a th:href="@{/employee/update(employeeId=${tempEmployee.id})}"
                            class="btn btn-sm btn-info">Update</a>

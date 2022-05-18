@@ -3,14 +3,14 @@ package com.example.employeemanagementsystem.controller;
 import com.example.employeemanagementsystem.service.UserService;
 import com.example.employeemanagementsystem.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/")
@@ -55,4 +55,20 @@ public class MainController {
 
         return "register";
     }
+
+//    @GetMapping("/update_role")
+//    public ResponseEntity<?> updateRole(@RequestParam("username") String username) {
+//
+//        if(Objects.equals(username, null)){
+//            return ResponseEntity.badRequest().body("Username must not be null!");
+//        }
+//
+//        try {
+//            userService.updateUserRoles(username);
+//        } catch (Exception exception) {
+//            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//
+//        return ResponseEntity.ok("Update successfully");
+//    }
 }
