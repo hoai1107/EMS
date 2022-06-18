@@ -21,8 +21,7 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
 
     public Employee save(Employee employee) {
-        Employee saved = employeeRepository.save(employee);
-        return saved;
+        return employeeRepository.save(employee);
     }
 
     public Optional<Employee> getEmployeeById(long id) {
