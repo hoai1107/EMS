@@ -1,6 +1,8 @@
 package com.example.employeemanagementsystem.controller;
 
 import com.example.employeemanagementsystem.entity.Employee;
+import com.example.employeemanagementsystem.exception.EmployeeErrorResponse;
+import com.example.employeemanagementsystem.exception.EmployeeNotFoundException;
 import com.example.employeemanagementsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +29,7 @@ public class EmployeeRestController {
     public ResponseEntity<Employee> getSingleEmployee(@PathVariable long employee_id){
         Optional<Employee> employeeOptional = employeeService.getEmployeeById(employee_id);
 
-        return employeeOptional.map(employee -> new ResponseEntity<>(employee, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
+        return employeeOptional.map(employee -> new ResponseEntity<>(employee, HttpStatus.OK)).orElseThrow(() -> new EmployeeNotFoundException("Employee not found."));
     }
 
     @PostMapping("")
@@ -43,7 +45,7 @@ public class EmployeeRestController {
         Optional<Employee> employeeOptional = employeeService.getEmployeeById(employee_id);
 
         if(employeeOptional.isEmpty()){
-            return new ResponseEntity<>("Employee not found!", HttpStatus.NOT_FOUND);
+            throw new EmployeeNotFoundException("Employee not found.");
         }
 
         employeeService.deleteEmployeeById(employee_id);
@@ -56,4 +58,7 @@ public class EmployeeRestController {
         employeeService.save(employee);
         return employee;
     }
+
+
+
 }
