@@ -19,11 +19,17 @@
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
                             <h3 class="login-heading mb-4 text-center">Log In</h3>
-                            <div th:if="${param.error}" class="alert alert-error">
+                            <div th:if="${param.error}" class="alert alert-danger">
                                 Invalid username or password.
                             </div>
                             <div th:if="${param.logout}" class="alert alert-success">
                                 You have been logged out.
+                            </div>
+                            <div th:if="${confirm_success != null and confirm_success}" class="alert alert-success">
+                                Account is verified.
+                            </div>
+
+                            <div th:if="${confirm_success != null and !confirm_success}" class="alert alert-success" th:text="${confirm_message}">
                             </div>
                             <!-- Sign In Form -->
                             <form action="#" th:action="@{/login}" method="POST">

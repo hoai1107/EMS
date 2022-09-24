@@ -22,7 +22,7 @@
 
                             <!-- Register Message -->
                             <div th:if="${registerError != null and !registerError}" class="alert alert-success">
-                                Register successfully!
+                                Register successfully! Please check your email for confirmation.
                             </div>
                             <div th:if="${registerError != null and registerError}" th:text="${errorMessage}"
                                  class="alert alert-danger">
@@ -39,6 +39,12 @@
                                     <input name="password" type="password" class="form-control" id="floatingPassword"
                                            placeholder="Password" th:field="*{password}">
                                     <label for="floatingPassword">Password</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input name="email" type="email" class="form-control" id="floatingEmail"
+                                           placeholder="Email" th:field="*{email}">
+                                    <label for="floatingEmail">Email</label>
                                 </div>
 
                                 <div class="d-grid">

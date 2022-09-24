@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
-
     private String username;
     private String password;
+    private String email;
     private boolean active;
     private List<GrantedAuthority> authorityList;
 
@@ -27,6 +27,7 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.email = user.getEmail();
         this.active = user.isActive();
         this.authorityList = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
